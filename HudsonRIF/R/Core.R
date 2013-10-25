@@ -18,14 +18,15 @@ Hudson = function(eSet, contrast, classCol, DElist, abs.PIF=TRUE, regulator.list
   PIFi = Ai*dEi
   # Calculate the coexpression of all pairs of genes in each condition
   rAij = cor(x=t(exprs(eSet[,which(pData(eSet)[,classCol] == conds$A)])), method="spearman")
-  rAij = rAij[!rownames(rAij) %in% DElist, DElist]
+  rAij = rAij[regulator.list, DElist]
   rBij = cor(x=t(exprs(eSet[,which(pData(eSet)[,classCol] == conds$B)])), method="spearman")
-  rBij = rBij[!rownames(rBij) %in% DElist, DElist]
+  rBij = rBij[regulator.list, DElist]
   # Calculate the difference in coexpression between the two conditions
   dCij = rAij - rBij
   # Calculate the RIF
   RIFi = calculateRIFi(PIFi=PIFi, dCij=dCij, DElist=DElist, abs.PIF=abs.PIF)
-  output = list(eSet=eSet, DElist=DElist, classCol=classCol, conds=conds, EiAB=EiAB, Ai=Ai, dEi=dEi, PIFi=PIFi, rAij=rAij, rBij=rBij, dCij=dCij, RIFi=RIFi)
+  output = list(eSet=eSet, DElist=DElist, classCol=classCol, conds=conds, regulator.list=regulator.list,
+                EiAB=EiAB, Ai=Ai, dEi=dEi, PIFi=PIFi, rAij=rAij, rBij=rBij, dCij=dCij, RIFi=RIFi)
   class(output) = "Hudson"
   return(output)
 }
