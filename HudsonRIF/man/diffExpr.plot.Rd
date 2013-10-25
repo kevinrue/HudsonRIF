@@ -74,11 +74,13 @@ function (hudson, formula, xlim = 0, ylim = 0)
     probeX = as.character(formula[[3]])
     probeY = as.character(formula[[2]])
     if (xlim == 0) {
-        xlim = range(exprs(hudson$eSet)[probeX, ]) + c(-0.5, 
+        xlim = range(exprs(hudson$eSet)[probeX, which(pData(hudson$eSet)[, 
+            hudson$classCol] \%in\% unlist(output$conds))]) + c(-0.5, 
             0.5)
     }
     if (ylim == 0) {
-        ylim = range(exprs(hudson$eSet)[probeY, ]) + c(-0.5, 
+        ylim = range(exprs(hudson$eSet)[probeY, which(pData(hudson$eSet)[, 
+            hudson$classCol] \%in\% unlist(output$conds))]) + c(-0.5, 
             0.5)
     }
     plot(formula = formula, data = as.data.frame(t(exprs(hudson$eSet[, 
@@ -89,7 +91,7 @@ function (hudson, formula, xlim = 0, ylim = 0)
         which(pData(hudson$eSet)[, hudson$classCol] == hudson$conds$B)])))))
     points(formula = formula, data = as.data.frame(t(exprs(hudson$eSet[, 
         which(pData(hudson$eSet)[, hudson$classCol] == hudson$conds$A)]))), 
-        col = "red", pch = 16)
+        col = "red", pch = 17)
     abline(lm(formula = formula, data = as.data.frame(t(exprs(hudson$eSet[, 
         which(pData(hudson$eSet)[, hudson$classCol] == hudson$conds$A)])))), 
         col = "red")
