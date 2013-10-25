@@ -52,3 +52,9 @@ diffExpr.plot = function(hudson, formula, xlim=0, ylim=0)
     hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$A)])))),
          col="red")
 }
+
+MA.plot = function(hudson, symmetric=T)
+{
+  if(symmetric){plot(x=hudson$Ai, y=hudson$dEi, ylim = rep(max(abs(hudson$dEi)), 2)*c(-1,1))}
+  else{plot(x=hudson$Ai, y=hudson$dEi)}
+}
