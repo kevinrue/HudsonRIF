@@ -13,14 +13,14 @@ parameterCheck(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{eSet}{
-%%     ~~Describe \code{eSet} here~~
+An object of class \code{ExpressionSet} containing the gene expression data.
 }
   \item{contrast}{
 %%     ~~Describe \code{contrast} here~~
 }
   \item{classCol}{
-%%     ~~Describe \code{classCol} here~~
-}
+The column name in \code{pData(eSet)} which contains the label 
+of the condition to subset)}
   \item{DElist}{
 %%     ~~Describe \code{DElist} here~~
 }
@@ -42,10 +42,18 @@ parameterCheck(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
 %% ...
 }
 \references{
-%% ~put references to the literature/web site here ~
+\itemize{
+\item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
+the quest for causal mutations and effector molecules." BMC Genomics 13: 356.
+{\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}}}
+\item{Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
+expression data correctly identifies the gene containing the causal mutation."
+PLoS Comput Biol 5(5): e1000382.
+\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
+}
 }
 \author{
-Kevin Rue-Albrecht
+Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
 }
 \note{
 %%  ~~further notes~~
@@ -116,5 +124,5 @@ function (eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{ Hudson }
+\keyword{ RIF }

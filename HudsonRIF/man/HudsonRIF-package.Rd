@@ -1,6 +1,6 @@
-\name{Hudson.package.dev-package}
-\alias{Hudson.package.dev-package}
-\alias{Hudson.package.dev}
+\name{HudsonRIF-package}
+\alias{HudsonRIF-package}
+\alias{HudsonRIF}
 \docType{package}
 \title{
 Calculation of Regulatory Impact Factor from gene expression data.
@@ -19,7 +19,7 @@ differentially expressed genes).
 }
 \details{
 \tabular{ll}{
-Package: \tab Hudson.package.dev\cr
+Package: \tab HudsonRIF\cr
 Type: \tab Package\cr
 Version: \tab 1.0\cr
 Date: \tab 2013-10-24\cr
@@ -33,23 +33,27 @@ for subsequent plots.
 \author{
 Kevin Rue-Albrecht
 
-Maintainer: Kevin Rue-Albrecht <kevin.rue@ucdconnect.ie>
+Maintainer: Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
 }
 \references{
-Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
+\itemize{
+\item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
 the quest for causal mutations and effector molecules." BMC Genomics 13: 356.
-\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}\cr
-Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
-expression data correctly identifies the gene containing the causal mutation." PLoS Comput Biol 5(5): e1000382.
-\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}
+{\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}}}
+\item{Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
+expression data correctly identifies the gene containing the causal mutation."
+PLoS Comput Biol 5(5): e1000382.
+\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
+}
 }
 \keyword{ package }
 \seealso{
-\code{\link[Biobase:Biobase-package]{Biobase-package}}
+\code{\link[Biobase:Biobase-package]{Biobase-package}}, \code{\link[BiocGenerics:BiocGenerics-package]{BiocGenerics-package}}
 }
 \examples{
 # Main wrapper
-\code{output = Hudson(eSet, contrast=treated~control, classCol="Treatment", DElist=DE.probesets, abs.PIF = TRUE)}
+\code{output = Hudson(eSet, contrast=treated~control, classCol="Treatment",
+                DElist=DE.probesets, abs.PIF = TRUE)}
 # Summary of output list object
 \code{output}
 # Access to output variables

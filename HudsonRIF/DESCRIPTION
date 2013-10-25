@@ -1,4 +1,4 @@
-Package: Hudson.package.dev
+Package: HudsonRIF
 Type: Package
 Title: Regulatory Impact Factor analysis of gene expression data
 Version: 1.0

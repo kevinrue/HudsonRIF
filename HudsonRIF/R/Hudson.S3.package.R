@@ -7,7 +7,7 @@ Hudson = function(eSet, contrast, classCol, DElist, abs.PIF=TRUE, regulator.list
   # Extracts the individual components of the contrast
   conds = list(A=as.character(contrast[[2]]), B=as.character(contrast[[3]]))
   # Identifies the list of regulators to consider (default: all features not in DElist)
-  if(regulator.list == ""){regulator.list = rownames(exprs(farms_informative.65))[!rownames(exprs(farms_informative.65)) %in% probes]}
+  if(any(regulator.list == "")){regulator.list = rownames(exprs(eSet))[!rownames(exprs(eSet)) %in% DElist]}
   # Calculate the average expression of each gene in each conditions
   EiAB = calculateEiAB(eSet=eSet, classCol=classCol, conds$A, conds$B)
   # Calculates the average abundance of each gene across conditions
@@ -66,13 +66,10 @@ parameterCheck = function(eSet, contrast, classCol, DElist, abs.PIF, regulator.l
     }
     ## no overlap between DElist and regulator.list
     if(sum(DElist %in% regulator.list) > 0){
-      stop("\"DElist\ and regulator.list overlap by (", sum(DElist %in% regulator.list)," feature(s) ", call.=F)
+      stop("\"DElist\ and regulator.list overlap by (", sum(DElist %in% regulator.list),") feature(s) ", call.=F)
     }
   }
 }
-
-
-
 
 # subset an expression dataset according to its phenodata
 calculateEiAB = function(eSet, classCol, A, B)
@@ -116,40 +113,40 @@ print.Hudson = function(x, ...)
   cat(paste(cat(x$DElist[1:5]), "\n...\n (Total:", length(x$DElist),"values)\n\n"))
   # conds information
   cat("$conds\n")
-  print(unlist(t$conds))
+  print(unlist(x$conds))
   cat(" (", length(x$conds)," conditions)\n\n", sep="")
   # EiAB information
   cat("$EiAB\n")
   print(head(x$EiAB));
-  cat("...\n (",paste(dim(t$EiAB), collapse="x"), " matrix)\n\n", sep="")
+  cat("...\n (",paste(dim(x$EiAB), collapse="x"), " matrix)\n\n", sep="")
   # Ai information
   cat("$Ai\n")
   print(x$Ai[1:5])
-  cat("...\n (",paste(length(t$Ai)), " numeric)\n\n", sep="")
+  cat("...\n (",paste(length(x$Ai)), " numeric)\n\n", sep="")
   # dEi information
   cat("$dEi\n")
   print(x$dEi[1:5])
-  cat("...\n (",paste(length(t$dEi)), " numeric)\n\n", sep="")
+  cat("...\n (",paste(length(x$dEi)), " numeric)\n\n", sep="")
   # PIFi information
   cat("$PIFi\n")
   print(x$PIFi[1:5])
-  cat("...\n (",paste(length(t$PIFi)), " numeric)\n\n", sep="")
+  cat("...\n (",paste(length(x$PIFi)), " numeric)\n\n", sep="")
   # rAij information
   cat("$rAij\n")
-  print(t$rAij[1:5,1:5])
-  cat("...\n (",paste(dim(t$rAij), collapse="x"), " matrix)\n\n", sep="")
+  print(x$rAij[1:5,1:5])
+  cat("...\n (",paste(dim(x$rAij), collapse="x"), " matrix)\n\n", sep="")
   # rBij information
   cat("$rBij\n")
-  print(t$rBij[1:5,1:5])
-  cat("...\n (",paste(dim(t$rBij), collapse="x"), " matrix)\n\n", sep="")
+  print(x$rBij[1:5,1:5])
+  cat("...\n (",paste(dim(x$rBij), collapse="x"), " matrix)\n\n", sep="")
   # dCij information
   cat("$dCij\n")
-  print(t$dCij[1:5,1:5])
-  cat("...\n (",paste(dim(t$dCij), collapse="x"), " matrix)\n\n", sep="")
+  print(x$dCij[1:5,1:5])
+  cat("...\n (",paste(dim(x$dCij), collapse="x"), " matrix)\n\n", sep="")
   # RIFi information
   cat("$RIFi\n")
   print(x$RIFi[1:5])
-  cat("...\n (",paste(length(t$RIFi)), " numeric)\n\n", sep="")
+  cat("...\n (",paste(length(x$RIFi)), " numeric)\n\n", sep="")
 }
 
 #t = Hudson(eSet=farms_informative.65, contrast=MAP~CN, classCol="Treatment", DElist=probes, abs.PIF=T, regulator.list="")#
