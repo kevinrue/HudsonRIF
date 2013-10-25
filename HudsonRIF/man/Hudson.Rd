@@ -23,9 +23,9 @@ Hudson(eSet, contrast, classCol, DElist, abs.PIF = TRUE, regulator.list = "")
 An object of class \code{ExpressionSet} containing the gene expression data.
 }
   \item{contrast}{
-A \code{formula}} of the form \code{A~B} describing the two conditions to
+A \code{formula} of the form \code{A~B} describing the two conditions to
 compare. Positive differential expression means higher expression in 
-condition \code{A} compared to condition \code{B}.
+condition \code{A} compared to condition \code{B}.}
   \item{classCol}{
 The column name in \code{pData(eSet)} which contains the label 
 of the condition to subset)}
