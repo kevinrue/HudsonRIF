@@ -1,0 +1,12 @@
+Package: Hudson.package.dev
+Type: Package
+Title: Regulatory Impact Factor analysis of gene expression data
+Version: 1.0
+Date: 2013-10-24
+Author: Kevin Rue-Albrecht
+Maintainer: Kevin Rue-Albrecht <kevin.rue@ucdconnect.ie>
+Description: Description: Tools for analysis of gene expression data
+ and data visualisation based on the approach published by Hudson NJ,
+ Dalrymple BP, Reverter A (2012). See URL reference.
+URL: http://www.ncbi.nlm.nih.gov/pubmed/22849396
+License: GPL-2
