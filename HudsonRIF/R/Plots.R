@@ -25,3 +25,28 @@ diffCoex.bg.plot = function(hudson)
   abline(coef=c(0,1), col="green", lwd=2)
 }
 
+diffExpr.plot = function(hudson, formula, xlim=0, ylim=0)
+{
+  # Extracts from the formula the names of the conditions to compare
+  probeX = as.character(formula[[3]])
+  probeY = as.character(formula[[2]])
+  # Broaden the scale to at least one log2 fold-change
+  if(xlim == 0) {xlim = range(exprs(hudson$eSet)[probeX,])+c(-0.5,0.5)}
+  if(ylim == 0) {ylim = range(exprs(hudson$eSet)[probeY,])+c(-0.5,0.5)}
+  # Data points for condition B
+  plot(formula=formula, data=as.data.frame(t(exprs(
+    hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$B)]))),
+       main=paste(hudson$conds$B,": Black\n",hudson$conds$A,": Red"), xlim=xlim,
+       ylim=ylim, pch=16)
+  # Linear regression for condition B
+  abline(lm(formula=formula,  data=as.data.frame(t(
+    exprs(hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$B)])))))
+  # Data points for condition A
+  points(formula=formula, data=as.data.frame(t(exprs(
+    hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$A)]))),
+         col="red", pch=16)
+  # Linear regression for condition A
+  abline(lm(formula=formula,  data=as.data.frame(t(exprs(
+    hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$A)])))),
+         col="red")
+}

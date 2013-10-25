@@ -1,15 +1,15 @@
-\name{diffCoex.bg.plot}
-\alias{diffCoex.bg.plot}
+\name{diffCoex.bgplot}
+\alias{diffCoex.bgplot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Comparative background plot of coexpression in two conditions.
 }
 \description{
-\code{diffCoexPIF.plot} plots the coexpression of all regulatory genes
+\code{diffCoex.bgplot} plots the coexpression of all regulatory genes
 with each of the DE.
 }
 \usage{
-diffCoexPIF.bg.plot(hudson)
+diffCoex.bgplot(hudson)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -53,7 +53,7 @@ output = Hudson(eSet, contrast = infected~control, classCol = "Treatment",
 
 # Plots the coexpression of probe set "Bt.6947.1.S1_at" against all DE genes in the two
 # treatments.
-diffCoex.bg.plot(hudson=output) 
+diffCoex.bgplot(hudson=output) 
  
 ## The function is currently defined as
 function (hudson) 
