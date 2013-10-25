@@ -77,7 +77,7 @@ Related methods \code{\link{parameterCheck}}, \code{\link{calculateEiAB}},
 }
 \examples{
 # Simplified example using Affymetrix Bovine Genome Array probe sets.
-Hudson(eSet, contrast = infected~control, classCol = "Treatment",
+output = Hudson(eSet, contrast = infected~control, classCol = "Treatment",
        DElist = c("Bt.12756.1.S1_at", "Bt.188.1.S1_at", "Bt.523.1.S1_at"), abs.PIF = TRUE)
 
 ## The function is currently defined as
