@@ -58,4 +58,5 @@ MA.plot = function(hudson, symmetric=T)
   if(symmetric){plot(x=hudson$Ai, y=hudson$dEi, ylim = rep(max(abs(hudson$dEi)), 2)*c(-1,1),
   xlab = "A", ylab = "M")}
   else{plot(x=hudson$Ai, y=hudson$dEi)}
+  abline(h=0, col="red")
 }
