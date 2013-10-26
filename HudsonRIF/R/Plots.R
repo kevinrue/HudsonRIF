@@ -32,9 +32,9 @@ diffExpr.plot = function(hudson, formula, xlim=0, ylim=0)
   probeY = as.character(formula[[2]])
   # Broaden the scale to at least one log2 fold-change
   if(xlim == 0) {xlim = range(exprs(hudson$eSet)[probeX,which(
-    pData(hudson$eSet)[,hudson$classCol] %in% unlist(output$conds))])+c(-0.5,0.5)}
+    pData(hudson$eSet)[,hudson$classCol] %in% unlist(hudson$conds))])+c(-0.5,0.5)}
   if(ylim == 0) {ylim = range(exprs(hudson$eSet)[probeY,which(
-    pData(hudson$eSet)[,hudson$classCol] %in% unlist(output$conds))])+c(-0.5,0.5)}
+    pData(hudson$eSet)[,hudson$classCol] %in% unlist(hudson$conds))])+c(-0.5,0.5)}
   # Data points for condition B
   plot(formula = formula, data = as.data.frame(t(exprs(
     hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$B)]))),
