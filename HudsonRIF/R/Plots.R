@@ -36,25 +36,26 @@ diffExpr.plot = function(hudson, formula, xlim=0, ylim=0)
   if(ylim == 0) {ylim = range(exprs(hudson$eSet)[probeY,which(
     pData(hudson$eSet)[,hudson$classCol] %in% unlist(output$conds))])+c(-0.5,0.5)}
   # Data points for condition B
-  plot(formula=formula, data=as.data.frame(t(exprs(
+  plot(formula = formula, data = as.data.frame(t(exprs(
     hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$B)]))),
-       main=paste(hudson$conds$B,": Black\n",hudson$conds$A,": Red"), xlim=xlim,
-       ylim=ylim, pch=16)
+       main = paste(hudson$conds$B,": Black\n",hudson$conds$A,": Red"), xlim = xlim,
+       ylim = ylim, pch=16)
   # Linear regression for condition B
-  abline(lm(formula=formula,  data=as.data.frame(t(
+  abline(lm(formula = formula,  data = as.data.frame(t(
     exprs(hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$B)])))))
   # Data points for condition A
-  points(formula=formula, data=as.data.frame(t(exprs(
+  points(formula = formula, data = as.data.frame(t(exprs(
     hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$A)]))),
-         col="red", pch=17)
+         col = "red", pch = 17)
   # Linear regression for condition A
-  abline(lm(formula=formula,  data=as.data.frame(t(exprs(
+  abline(lm(formula = formula,  data = as.data.frame(t(exprs(
     hudson$eSet[,which(pData(hudson$eSet)[,hudson$classCol] == hudson$conds$A)])))),
-         col="red")
+         col = "red")
 }
 
 MA.plot = function(hudson, symmetric=T)
 {
-  if(symmetric){plot(x=hudson$Ai, y=hudson$dEi, ylim = rep(max(abs(hudson$dEi)), 2)*c(-1,1))}
+  if(symmetric){plot(x=hudson$Ai, y=hudson$dEi, ylim = rep(max(abs(hudson$dEi)), 2)*c(-1,1),
+  xlab = "A", ylab = "M")}
   else{plot(x=hudson$Ai, y=hudson$dEi)}
 }
