@@ -16,7 +16,7 @@ diffCoexPIF.plot = function(hudson, probe, pch.max = 0)
   abline(coef = c(0, 1), col = "green", lwd = 2)
 }
 
-diffCoex.bg.plot = function(hudson)
+diffCoex.bgplot = function(hudson)
 {
   # plots the coexpression values in each condition
   plot(x=hudson$rBij, y=hudson$rAij, xlim=c(-1,1), ylim=c(-1,1),
@@ -53,10 +53,12 @@ diffExpr.plot = function(hudson, formula, xlim=0, ylim=0)
          col = "red")
 }
 
-MA.plot = function(hudson, symmetric=T)
+MA.plot = function(hudson, symmetric=TRUE)
 {
+  # Plot with symmetric Y-axis range
   if(symmetric){plot(x=hudson$Ai, y=hudson$dEi, ylim = rep(max(abs(hudson$dEi)), 2)*c(-1,1),
   xlab = "A", ylab = "M")}
+  # Plot with Y(axis range fitted to data
   else{plot(x=hudson$Ai, y=hudson$dEi)}
   abline(h=0, col="red")
 }

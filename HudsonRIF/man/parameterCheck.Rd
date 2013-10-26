@@ -1,16 +1,20 @@
 \name{parameterCheck}
+
 \alias{parameterCheck}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Checks the user input for invalid values.
 }
+
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Returns an error if one on the user-defined inputs does not match the 
+requirements of the package.
 }
+
 \usage{
 parameterCheck(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{eSet}{
 An object of class \code{ExpressionSet} containing the gene expression data.
@@ -31,16 +35,7 @@ of the condition to subset)}
 %%     ~~Describe \code{regulator.list} here~~
 }
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
+
 \references{
 \itemize{
 \item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
@@ -52,22 +47,12 @@ PLoS Comput Biol 5(5): e1000382.
 \href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
 }
 }
+
 \author{
 Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
 function (eSet, contrast, classCol, DElist, abs.PIF, regulator.list) 
@@ -85,7 +70,7 @@ function (eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
             3)]), collapse = " ~ "), ") contains more than one term on each side", 
             call. = F)
     }
-    if (!classCol \%in\% names(pData(eSet))) {
+    if (!classCol \%in\% names(pData(eSet))){
         stop("\"classCol\" (", classCol, ") is not a valid column name in \"pData(eSet)\"", 
             call. = F)
     }
@@ -116,13 +101,13 @@ function (eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
         }
         if (sum(DElist \%in\% regulator.list) > 0) {
             stop("\"DElist and regulator.list overlap by (", 
-                sum(DElist \%in\% regulator.list), " feature(s) ", 
+                sum(DElist \%in\% regulator.list), ") feature(s) ", 
                 call. = F)
         }
     }
-  }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}
+
+
 \keyword{ Hudson }
 \keyword{ RIF }
