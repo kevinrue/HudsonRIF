@@ -27,7 +27,7 @@ differentially expressed genes).
 \tabular{ll}{
 Package: \tab HudsonRIF\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 0.2\cr
 Date: \tab 2013-10-24\cr
 License: \tab GPL-2\cr
 }
