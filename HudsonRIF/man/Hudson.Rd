@@ -7,12 +7,13 @@ Main wrapper to compute Regulatory Impact Factor from gene expression set.
 }
 
 \description{
-\code{Hudson} is the main wrapper to use for the Regulatory Impact Factor 
-analysis on a gene expression dataset. It expects an ExpressionSet object
+'\code{Hudson}' is the main wrapper to use for the Regulatory Impact Factor 
+analysis for a gene expression dataset. It takes as input an ExpressionSet object
 from the Biobase package, with phenotypic data including a column describing
-the conditions to compare with at least two factor levels.\cr\cr
-A list of suspected regulator genes can be specified, to restrict the RIF 
-analysis to those.\cr\cr
+the conditions to compare (two factor levels).\cr\cr
+A list of suspected regulator genes can be specified (such as a list of transcription
+factors), otherwise all genes in the expressionset that are not listed in the list of
+differentially expressed genes are used.\cr\cr
 We sugest the use of absolute PIF values for the calculation of RIF values
 (see "Details" section of \link{calculateRIFi})
 }
