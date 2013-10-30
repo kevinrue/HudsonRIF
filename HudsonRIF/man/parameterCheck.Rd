@@ -40,11 +40,13 @@ of the condition to subset)}
 \itemize{
 \item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
 the quest for causal mutations and effector molecules." BMC Genomics 13: 356.
-{\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{22849396}}
+\item{Reverter, A., N. J. Hudson, et al. (2010). "Regulatory impact factors: unraveling the transcriptional regulation of complex traits from expression data." Bioinformatics 26(7): 896-904.
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/20144946}{20144946}}
 \item{Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
 expression data correctly identifies the gene containing the causal mutation."
 PLoS Comput Biol 5(5): e1000382.
-\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{19412532}}
 }
 }
 
