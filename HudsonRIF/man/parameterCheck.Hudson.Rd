@@ -1,6 +1,6 @@
-\name{parameterCheck}
+\name{parameterCheck.Hudson}
 
-\alias{parameterCheck}
+\alias{parameterCheck.Hudson}
 
 \title{
 Checks the user input for invalid values.
@@ -12,7 +12,7 @@ requirements of the package.
 }
 
 \usage{
-parameterCheck(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
+parameterCheck.Hudson(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
 }
 
 \arguments{

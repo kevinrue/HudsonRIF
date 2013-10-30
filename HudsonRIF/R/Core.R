@@ -3,7 +3,7 @@
 Hudson = function(eSet, contrast, classCol, DElist, abs.PIF=TRUE, regulator.list="")
 {
   # Checks the validity of user-defined variables
-  parameterCheck(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
+  parameterCheck.Hudson(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
   # Extracts the individual components of the contrast
   conds = list(A=as.character(contrast[[2]]), B=as.character(contrast[[3]]))
   # Identifies the list of regulators to consider (default: all features not in DElist)
@@ -31,7 +31,7 @@ Hudson = function(eSet, contrast, classCol, DElist, abs.PIF=TRUE, regulator.list
   return(output)
 }
 
-parameterCheck = function(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
+parameterCheck.Hudson = function(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
 {
   ## eSet is an expressionSet
   if(class(eSet) != "ExpressionSet"){

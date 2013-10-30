@@ -70,7 +70,7 @@ and Paul McGettigan.
 }
 
 \seealso{
-Related methods \code{\link{parameterCheck}}, \code{\link{calculateEiAB}},
+Related methods \code{\link{parameterCheck.Hudson}}, \code{\link{calculateEiAB}},
  \code{\link{exprs}}, \code{\link{pData}},
 \code{\link{calculateRIFi}}, \code{\link{cor}}, class \code{\link{ExpressionSet}},
 and dedicated print statement \code{\link{print.Hudson}}.
@@ -99,7 +99,7 @@ class(hud) = "Hudson"
 ## The function is currently defined as
 function (eSet, contrast, classCol, DElist, abs.PIF = TRUE, regulator.list = "")
 {
-    parameterCheck(eSet, contrast, classCol, DElist, abs.PIF, 
+    parameterCheck.Hudson(eSet, contrast, classCol, DElist, abs.PIF, 
         regulator.list)
     conds = list(A = as.character(contrast[[2]]), B = as.character(contrast[[3]]))
     if (any(regulator.list == "")) {
