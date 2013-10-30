@@ -38,7 +38,8 @@ PLoS Comput Biol 5(5): e1000382.
 }
 
 \author{
-Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
+Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{kevin DOT rue AT ucdconnect DOT ie}>
+and Paul McGettigan.
 }
 
 \seealso{

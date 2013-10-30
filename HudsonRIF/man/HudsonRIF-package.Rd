@@ -40,9 +40,11 @@ for subsequent plots.
 }
 
 \author{
-Kevin Rue-Albrecht
+Kevin Rue-Albrecht and Paul McGettigan.
 
-Maintainer: Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
+Maintainer: Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{kevin DOT 
+rue AT ucdconnect DOT ie}>
+
 }
 
 \references{
