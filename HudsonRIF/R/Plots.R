@@ -2,6 +2,8 @@
 
 diffCoexPIF.plot = function(hudson, probe, pch.max = 0)
 {
+  # Check the validity of user-defined variables
+  paramCheck.diffCoexPIF.plot(hudson=hudson, probe=probe, pch.max=pch.max)
   # Filters and normalise the the maximum circle size if required
   if (pch.max == 0) {
     pch.max = max(hudson$PIFi)
@@ -62,3 +64,34 @@ MA.plot = function(hudson, symmetric=TRUE)
   else{plot(x=hudson$Ai, y=hudson$dEi)}
   abline(h=0, col="red")
 }
+
+paramCheck.diffCoexPIF.plot = function(hudson, probe, pch.max)
+{
+  # hudson is a working output of the Hudson wrapper
+  if(class(hudson) != "Hudson"){
+    stop("\"hudson\" (", class(hudson),") is not an Hudson object.", call.=F)
+  }
+  # Note: $eSet, $classCol, $regulator.list, EiAB, Ai, dEi, dCij not necessary
+  if(any(!c("conds", "DElist", "PIFi", "rAij", "rBij", "RIFi") %in% names(hudson))){
+    stop("\"hudson\" (", names(hudson),") is not a valid Hudson object.
+         One item of $conds, $DElist, $PIFi, $rAij, $rBij or $RIFi is missing.", call.=F)
+  }
+  # Check that probe is a valid probeID
+  if(!is.character(probe)){
+    stop("\"probe\" (", probe,") is not a character object.", call.=F)
+  }
+  if(! probe %in% rownames(hudson$rAij)){
+    stop("\"probe\" (", probe,") is not a valid probe ID in rAij rows.", call.=F)
+  }
+  if(! probe %in% rownames(hudson$rBij)){
+    stop("\"probe\" (", probe,") is not a valid probe ID in rBij rows.", call.=F)
+  }
+  # pch.max should be a positive integer
+  if(!is.numeric(pch.max)){
+    stop("\"pch.max\" (", pch.max,") is not a numeric object.", call.=F)
+  }
+  if(pch.max < 0){
+    stop("\"pch.max\" (", pch.max,") should be a positive integer.", call.=F)
+  }
+}
+
