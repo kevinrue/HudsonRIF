@@ -1,10 +1,15 @@
 \name{HudsonRIF-package}
+
 \alias{HudsonRIF-package}
+
 \alias{HudsonRIF}
+
 \docType{package}
+
 \title{
 Calculation of Regulatory Impact Factor from gene expression data.
 }
+
 \description{
 Based on the publications by Hudson et al. (see \code{References}), this
 package provides tools to compare two phenotypes, identify genes features
@@ -17,11 +22,12 @@ On the other hand, high RIF indicates high differential co-expression
 between a gene feature and a list of user-defined genes (typically
 differentially expressed genes). 
 }
+
 \details{
 \tabular{ll}{
 Package: \tab HudsonRIF\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 0.3\cr
 Date: \tab 2013-10-24\cr
 License: \tab GPL-2\cr
 }
@@ -32,32 +38,66 @@ Plotting functions: \link{diffCoexPIF.plot}
 The main output is given a list of all intermediate objects useful
 for subsequent plots.
 }
-\author{
-Kevin Rue-Albrecht
 
-Maintainer: Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
+\author{
+Kevin Rue-Albrecht and Paul McGettigan.
+
+Maintainer: Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{kevin DOT 
+rue AT ucdconnect DOT ie}>
+
 }
+
 \references{
 \itemize{
 \item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
 the quest for causal mutations and effector molecules." BMC Genomics 13: 356.
-{\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{22849396}}
+\item{Reverter, A., N. J. Hudson, et al. (2010). "Regulatory impact factors: unraveling the transcriptional regulation of complex traits from expression data." Bioinformatics 26(7): 896-904.
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/20144946}{20144946}}
 \item{Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
 expression data correctly identifies the gene containing the causal mutation."
 PLoS Comput Biol 5(5): e1000382.
-\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{19412532}}
 }
 }
+
 \keyword{ package }
+
 \seealso{
-\code{\link[Biobase:Biobase-package]{Biobase-package}}, \code{\link[BiocGenerics:BiocGenerics-package]{BiocGenerics-package}}
+\code{\link[Biobase:Biobase-package]{Biobase-package}},
+\code{\link[BiocGenerics:BiocGenerics-package]{BiocGenerics-package}}
 }
+
 \examples{
-# Main wrapper
-\code{output = Hudson(eSet, contrast=treated~control, classCol="Treatment",
-                DElist=DE.probesets, abs.PIF = TRUE)}
-# Summary of output list object
-\code{output}
-# Access to output variables
-\code{output$RIFi}
+# Simulate a result of the Hudson function
+hud = list(
+  eSet = new("ExpressionSet"),
+  DElist = paste("gene", 6:9),
+  classCol = "Treatment",
+  conds = list(A="infected", B="control"),
+  EiAB = matrix(data=rnorm(n=10, mean=10, sd=4), ncol=2, dimnames=list(paste("gene", 1:5), c("S1","S2"))), 
+  Ai = rnorm(n=5, mean=10, sd=4),
+  dEi = rnorm(n=5, mean=0, sd=1),
+  PIFi = rnorm(n=4, mean=15, sd=10),
+  rAij = matrix(data = runif(n = 20, min = -1, max = 1), ncol = 4, dimnames = list(paste("gene", 1:5), paste("gene", 6:9))),
+  rBij = matrix(data = runif(n = 20, min = -1, max = 1), ncol = 4, dimnames = list(paste("gene", 1:5), paste("gene", 6:9))),
+  dCij = matrix(data = runif(n = 20, min = -2, max = 2), ncol = 4, dimnames = list(paste("gene", 1:5), paste("gene", 6:9))),
+  RIFi = rnorm(n=5, mean=2, sd=1))
+# Named vectors are required for most plots
+names(hud$PIFi) = paste("gene", 6:9)
+# The Hudson function changes the class of its output to "Hudson" for 
+class(hud) = "Hudson"
+
+# Use of the dedicated print function for class "Hudson"
+hud
+
+# plots the differential coexpression between all pairs of regulatory and DE genes
+# WARNING: Struggles with massive data sets
+diffCoex.bgplot(hudson=hud)
+
+# plot the differential coexpression of a regulatory gene against all DE genes weighted by PIF value
+diffCoexPIF.plot(hudson=hud, probe="gene 1", pch.max=15)
+
+# plot the differential expression against the mean abundance of all genes
+MA.plot(hudson=hud, symmetric=TRUE)
 }

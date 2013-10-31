@@ -1,4 +1,5 @@
 \name{calculateRIFi}
+
 \alias{calculateRIFi}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -32,6 +33,7 @@ List of genes differentially expressed between the two conditions considered.
 See section "Details".
 }
 }
+
 \details{
 \code{abs.PIF} allows to use absolute PIF values for genes in \code{DElist}.\cr
 RIF values are the  sum of squared differential coexpression
@@ -43,67 +45,39 @@ PIF values describe the abundance of genes across two conditions and their
 differential expression between those two conditions. Therefore, large
 positive values indicate abundant genes with higher expression in condition A
 compared to B, and vice versa.
-
-
-
 }
+
 \value{
 Array of RIF values for each gene feature present in
 \code{regulator.list} if specified; otherwise all gene features in
 \code{rownames(exprs(eSet))} except \code{DElist}
 }
+
 \references{
 \itemize{
 \item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
 the quest for causal mutations and effector molecules." BMC Genomics 13: 356.
-{\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{22849396}}
+\item{Reverter, A., N. J. Hudson, et al. (2010). "Regulatory impact factors: unraveling the transcriptional regulation of complex traits from expression data." Bioinformatics 26(7): 896-904.
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/20144946}{20144946}}
 \item{Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
 expression data correctly identifies the gene containing the causal mutation."
 PLoS Comput Biol 5(5): e1000382.
-\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{19412532}}
 }
-}
-\author{
-Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
-}
-\note{
-%%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\author{
+Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{kevin DOT rue AT ucdconnect DOT ie}>
+and Paul McGettigan.
+}
 
 \seealso{
 Related methods \code{\link{Hudson}}, \code{\link{calculateEiAB}}. 
 }
-\examples{
-# Adapt to your variables
-classCol ="Treatment"
-conds = list(A = "infected" , B = "control")
 
-# Calculate the average expression for each condition
-EiAB = calculateEiAB(eSet = eSet, classCol = classCol, conds$A, 
-        conds$B)
-# Calculate the average abundance across conditions
-Ai = (EiAB[, conds$A] + EiAB[, conds$B])/2
-# Calculate the average differential expression between conditions
-dEi = EiAB[, conds$A] - EiAB[, conds$B]
-# Calculate the PIF values
-PIFi = Ai * dEi
-# Calculate pairwise coexpression values in condition A
-rAij = cor(x = t(exprs(eSet[, which(pData(eSet)[, classCol] == 
-           conds$A)])), method = "spearman")
-# Subset to the coexpression values to pairs between regulators and DE genes
-rAij = rAij[!rownames(rAij) %in% DElist, DElist]
-# Calculate pairwise coexpression values in condition B
-rBij = cor(x = t(exprs(eSet[, which(pData(eSet)[, classCol] == 
-           conds$B)])), method = "spearman")
-# Subset to the coexpression values to pairs between regulators and DE genes           
-rBij = rBij[!rownames(rBij) %in% DElist, DElist]
-# Calculate the differential coexpression
-dCij = rAij - rBij
-# Finally: Calculate the RIF values
-RIFi = calculateRIFi(PIFi = PIFi, dCij = dCij, DElist = DElist, 
-                     abs.PIF = abs.PIF)
+\examples{
+
                      
 ## The function is currently defined as
 function (PIFi, dCij, DElist, abs.PIF = T) 
@@ -118,9 +92,8 @@ function (PIFi, dCij, DElist, abs.PIF = T)
         return(apply(X = ((dCij.coefs \%*\% DE.PIFi)/length(DElist)), 
             MARGIN = 1, FUN = sum))
     }
-  }
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}
+
 \keyword{ Hudson }
 \keyword{ RIF }

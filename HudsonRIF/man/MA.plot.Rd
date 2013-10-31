@@ -1,30 +1,28 @@
-\name{diffCoexPIF.plot}
+\name{MA.plot}
 
-\alias{diffCoexPIF.plot}
+\alias{MA.plot}
 
 \title{
-Comparative plot of coexpression in two conditions.
+Differential expression of all genes plotted against the average abundance.
 }
 
 \description{
-\code{diffCoexPIF.plot} plots the coexpression of the specified gene 
-with each of the DE.
-
+\code{MA.plot} plots the differential expression of each gene in the 
+expression set between the two conditions against its average abundance
+across those two conditions.
 }
+
 \usage{
-diffCoexPIF.plot(hudson, probe, pch.max = 0)
+MA.plot(hudson, symmetric = TRUE) 
 }
 
 \arguments{
   \item{hudson}{
 The output of the main wrapper \code{Hudson} function.
 }
-  \item{probe}{
-The regulatory probe set to plot coexpression values of.
-}
-  \item{pch.max}{
-A scaling factor defining the size of the data point associated with the
-maximal PIF value.
+  \item{symmetric}{
+\code{logical}. Whether the Y-axis (differential expression) should have
+a symmetrical range.
 }
 }
 
@@ -48,7 +46,7 @@ and Paul McGettigan.
 }
 
 \seealso{
-Related methods \code{\link{Hudson}}, \code{\link{plot}},  \code{\link{abline}}.
+Related methods \code{\link{Hudson}}, \code{\link{plot}}.
 }
 
 \examples{
@@ -74,20 +72,20 @@ class(hud) = "Hudson"
 # Use of the dedicated print function for class "Hudson"
 hud
 
-# plot the differential coexpression of a regulatory gene against all DE genes weighted by PIF value
-diffCoexPIF.plot(hudson=hud, probe="gene 1", pch.max=15)
+# plot the differential expression against the mean abundance of all genes
+MA.plot(hudson=hud, symmetric=TRUE)
  
 ## The function is currently defined as
-function (hudson, probe, pch.max = 0) 
+function (hudson, symmetric = TRUE) 
 {
-    if (pch.max == 0) {
-        pch.max = max(hudson$PIFi)
+    if (symmetric) {
+        plot(x = hudson$Ai, y = hudson$dEi, ylim = rep(max(abs(hudson$dEi)), 
+            2) * c(-1, 1), xlab = "A", ylab = "M")
     }
-    PIF.DE = hudson$PIFi[hudson$DElist]/max(hudson$PIFi) * pch.max
-    plot(x = hudson$rBij[probe, ], y = hudson$rAij[probe, ], 
-        xlim = c(-1, 1), ylim = c(-1, 1), cex = PIF.DE, xlab = hudson$conds$B, 
-        ylab = hudson$conds$A, pch = 20, main = probe)
-    abline(coef = c(0, 1), col = "green", lwd = 2)
+    else {
+        plot(x = hudson$Ai, y = hudson$dEi)
+    }
+    abline(h = 0, col = "red")
 }
 }
 

@@ -1,31 +1,28 @@
-\name{diffCoexPIF.plot}
+\name{diffCoex.bgplot}
 
-\alias{diffCoexPIF.plot}
+\alias{diffCoex.bgplot}
 
 \title{
-Comparative plot of coexpression in two conditions.
+Comparative background plot of coexpression in two conditions.
 }
 
 \description{
-\code{diffCoexPIF.plot} plots the coexpression of the specified gene 
+\code{diffCoex.bgplot} plots the coexpression of all regulatory genes
 with each of the DE.
-
 }
+
 \usage{
-diffCoexPIF.plot(hudson, probe, pch.max = 0)
+diffCoex.bgplot(hudson)
 }
 
 \arguments{
   \item{hudson}{
 The output of the main wrapper \code{Hudson} function.
 }
-  \item{probe}{
-The regulatory probe set to plot coexpression values of.
 }
-  \item{pch.max}{
-A scaling factor defining the size of the data point associated with the
-maximal PIF value.
-}
+
+\details{
+This function struggles with very large expression datasets.
 }
 
 \references{
@@ -52,6 +49,7 @@ Related methods \code{\link{Hudson}}, \code{\link{plot}},  \code{\link{abline}}.
 }
 
 \examples{
+
 # Simulate a result of the Hudson function
 hud = list(
   eSet = new("ExpressionSet"),
@@ -74,19 +72,16 @@ class(hud) = "Hudson"
 # Use of the dedicated print function for class "Hudson"
 hud
 
-# plot the differential coexpression of a regulatory gene against all DE genes weighted by PIF value
-diffCoexPIF.plot(hudson=hud, probe="gene 1", pch.max=15)
+# plots the differential coexpression between all pairs of regulatory and DE genes
+# WARNING: Struggles with massive data sets
+diffCoex.bgplot(hudson=hud)
  
 ## The function is currently defined as
-function (hudson, probe, pch.max = 0) 
+function (hudson) 
 {
-    if (pch.max == 0) {
-        pch.max = max(hudson$PIFi)
-    }
-    PIF.DE = hudson$PIFi[hudson$DElist]/max(hudson$PIFi) * pch.max
-    plot(x = hudson$rBij[probe, ], y = hudson$rAij[probe, ], 
-        xlim = c(-1, 1), ylim = c(-1, 1), cex = PIF.DE, xlab = hudson$conds$B, 
-        ylab = hudson$conds$A, pch = 20, main = probe)
+    plot(x = hudson$rBij, y = hudson$rAij, xlim = c(-1, 1), ylim = c(-1, 
+        1), xlab = hudson$conds$B, ylab = hudson$conds$A, pch = 20, 
+        col = "grey")
     abline(coef = c(0, 1), col = "green", lwd = 2)
 }
 }

@@ -1,7 +1,8 @@
 Package: HudsonRIF
 Type: Package
 Title: Regulatory Impact Factor analysis of gene expression data
-Version: 1.0
+Version: 0.3
+Depends: Biobase
 Date: 2013-10-24
 Author: Kevin Rue-Albrecht
 Maintainer: Kevin Rue-Albrecht <kevin.rue@ucdconnect.ie>

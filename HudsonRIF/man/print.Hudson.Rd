@@ -1,24 +1,28 @@
 \name{print.Hudson}
+
 \alias{print.Hudson}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Print function for the Hudson class.
 }
+
 \description{
 Print a summary of each component of the Hudson object.\cr\cr
 }
+
 \usage{
-print.Hudson(x, ...)
+\method{print}{Hudson}(x, \dots)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{x}{
 The output of the main wrapper \code{Hudson} function.
 }
+  \item{\dots}{
+Additional arguments to be passed on to the function.
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
 }
+
 \value{
 A \code{list} of variables computed during the Regulatory Impact Factor analysis.\cr
 
@@ -49,32 +53,41 @@ phenotypic genes between the two conditions.}
 \itemize{
 \item{Hudson, N. J., B. P. Dalrymple, et al. (2012). "Beyond differential expression:
 the quest for causal mutations and effector molecules." BMC Genomics 13: 356.
-{\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{Pubmed}}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/22849396}{22849396}}
+\item{Reverter, A., N. J. Hudson, et al. (2010). "Regulatory impact factors: unraveling the transcriptional regulation of complex traits from expression data." Bioinformatics 26(7): 896-904.
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/20144946}{20144946}}
 \item{Hudson, N. J., A. Reverter, et al. (2009). "A differential wiring analysis of
 expression data correctly identifies the gene containing the causal mutation."
 PLoS Comput Biol 5(5): e1000382.
-\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{Pubmed}}
+PMID:\href{http://www.ncbi.nlm.nih.gov/pubmed/19412532}{19412532}}
 }
-}
-\author{
-Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{email}>
-}
-\note{
-%%  ~~further notes~~
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+\author{
+Kevin Rue-Albrecht <\href{mailto:kevin.rue@ucdconnect.ie}{kevin DOT rue AT ucdconnect DOT ie}>
+and Paul McGettigan.
+}
 
 \seealso{
 Generic method \link{print}.
 }
-\examples{
-# Simplified example using Affymetrix Bovine Genome Array probe sets.
-output = Hudson(eSet, contrast = infected~control, classCol = "Treatment",
-       DElist = c("Bt.12756.1.S1_at", "Bt.188.1.S1_at", "Bt.523.1.S1_at"), abs.PIF = TRUE)
 
-# Overview of output
-output
+\examples{
+# Simulate a result of the Hudson function
+hud = list(eSet = new("ExpressionSet"), DElist = c("DEgene1"), classCol = "Treatment",
+  conds = list(A="infected", B="control"),
+  EiAB = matrix(data=c(1,2,3,4), nrow=2, dimnames=list(c("gene1","gene2"), c("S1","S2"))), 
+  Ai = c(1,2,3,4), dEi = c(-2,-1,1,2), PIFi = c(-2,-1,1,2),
+  rAij = matrix(data=c(1,2,3,4), nrow=2, dimnames=list(c("gene1","gene2"), c("S1","S2"))),
+  rBij = matrix(data=c(1,2,3,4), nrow=2, dimnames=list(c("gene1","gene2"), c("S1","S2"))),
+  dCij = matrix(data=c(1,2,3,4), nrow=2, dimnames=list(c("gene1","gene2"), c("S1","S2"))),
+  RIFi = c(1,2,3,4))
+  
+# The Hudson function changes the class of its output to "Hudson" for 
+class(hud) = "Hudson"
+
+# Use of the dedicated print function for class "Hudson"
+hud
 
 ## The function is currently defined as
 function (x, ...) 
@@ -83,42 +96,68 @@ function (x, ...)
     print(x$eSet)
     cat("\n")
     cat("$DElist\n")
-    cat(paste(cat(x$DElist[1:5]), "\n...\n (Total:", length(x$DElist), 
-        "values)\n\n"))
+    print(head(x$DElist))
+    if (length(x$DElist) > 6) {
+        cat("...\n")
+    }
+    cat(" (Total:", length(x$DElist), "values)\n\n")
     cat("$conds\n")
     print(unlist(x$conds))
     cat(" (", length(x$conds), " conditions)\n\n", sep = "")
     cat("$EiAB\n")
     print(head(x$EiAB))
-    cat("...\n (", paste(dim(x$EiAB), collapse = "x"), " matrix)\n\n", 
+    if (nrow(x$EiAB) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(dim(x$EiAB), collapse = "x"), " matrix)\n\n", 
         sep = "")
     cat("$Ai\n")
-    print(x$Ai[1:5])
-    cat("...\n (", paste(length(x$Ai)), " numeric)\n\n", sep = "")
+    print(head(x$Ai))
+    if (length(x$Ai) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(length(x$Ai)), " numeric)\n\n", sep = "")
     cat("$dEi\n")
-    print(x$dEi[1:5])
-    cat("...\n (", paste(length(x$dEi)), " numeric)\n\n", sep = "")
+    print(head(x$dEi))
+    if (length(x$dEi) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(length(x$dEi)), " numeric)\n\n", sep = "")
     cat("$PIFi\n")
-    print(x$PIFi[1:5])
-    cat("...\n (", paste(length(x$PIFi)), " numeric)\n\n", sep = "")
+    print(head(x$PIFi))
+    if (length(x$PIFi) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(length(x$PIFi)), " numeric)\n\n", sep = "")
     cat("$rAij\n")
-    print(x$rAij[1:5, 1:5])
-    cat("...\n (", paste(dim(x$rAij), collapse = "x"), " matrix)\n\n", 
+    print(x$rAij[1:min(5, nrow(x$rAij)), 1:min(5, ncol(x$rAij))])
+    if (nrow(x$rAij) > 6 | ncol(x$rAij) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(dim(x$rAij), collapse = "x"), " matrix)\n\n", 
         sep = "")
     cat("$rBij\n")
-    print(x$rBij[1:5, 1:5])
-    cat("...\n (", paste(dim(x$rBij), collapse = "x"), " matrix)\n\n", 
+    print(x$rBij[1:min(5, nrow(x$rBij)), 1:min(5, ncol(x$rBij))])
+    if (nrow(x$rBij) > 6 | ncol(x$rBij) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(dim(x$rBij), collapse = "x"), " matrix)\n\n", 
         sep = "")
     cat("$dCij\n")
-    print(x$dCij[1:5, 1:5])
-    cat("...\n (", paste(dim(x$dCij), collapse = "x"), " matrix)\n\n", 
+    if (nrow(x$dCij) > 6 | ncol(x$dCij) > 6) {
+        cat("...\n")
+    }
+    print(x$dCij[1:min(5, nrow(x$dCij)), 1:min(5, ncol(x$dCij))])
+    cat(" (", paste(dim(x$dCij), collapse = "x"), " matrix)\n\n", 
         sep = "")
     cat("$RIFi\n")
-    print(x$RIFi[1:5])
-    cat("...\n (", paste(length(x$RIFi)), " numeric)\n\n", sep = "")
-  }
+    print(head(x$RIFi))
+    if (length(x$Ai) > 6) {
+        cat("...\n")
+    }
+    cat(" (", paste(length(x$RIFi)), " numeric)\n\n", sep = "")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+}
+
 \keyword{ Hudson }
 \keyword{ RIF }
