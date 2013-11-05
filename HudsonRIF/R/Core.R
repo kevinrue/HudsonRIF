@@ -3,31 +3,43 @@
 Hudson = function(eSet, contrast, classCol, DElist, abs.PIF=TRUE, regulator.list="")
 {
   # Checks the validity of user-defined variables
+  cat("Checking input variables...", fill=T)
   paramCheck.Hudson(eSet, contrast, classCol, DElist, abs.PIF, regulator.list)
   # Extracts the individual components of the contrast
+  cat("Identifying conditions to compare...", fill=T)
   conds = list(A=as.character(contrast[[2]]), B=as.character(contrast[[3]]))
   # Identifies the list of regulators to consider (default: all features not in DElist)
+  cat("Defining list of potential regulators...", fill=T)
   if(any(regulator.list == "")){regulator.list = rownames(exprs(eSet))[!rownames(exprs(eSet)) %in% DElist]}
   # Calculate the average expression of each gene in each conditions
+  cat("Computing average gene expression in each condition...", fill=T)
   EiAB = calculateEiAB(eSet=eSet, classCol=classCol, conds$A, conds$B)
   # Calculates the average abundance of each gene across conditions
+  cat("Computing average gene abundance across condition...", fill=T)
   Ai = (EiAB[,conds$A] + EiAB[,conds$B]) / 2
   # Calculate the differential expression log2 fold change for each gene in contrast
+  cat("Computing differential expression between conditions...", fill=T)
   dEi = EiAB[,conds$A] - EiAB[,conds$B]
   # Calculate the PIF
+  cat("Computing Phenotypic Impact Factor...", fill=T)
   PIFi = Ai*dEi
   # Calculate the coexpression of all pairs of genes in each condition
+  cat("Computing all pairwise co-expression values in condition A...(This may take a moment)", fill=T)
   rAij = cor(x=t(exprs(eSet[,which(pData(eSet)[,classCol] == conds$A)])), method="spearman")
   rAij = rAij[regulator.list, DElist]
+  cat("Computing all pairwise co-expression values in condition B...(This may take a moment)", fill=T)
   rBij = cor(x=t(exprs(eSet[,which(pData(eSet)[,classCol] == conds$B)])), method="spearman")
   rBij = rBij[regulator.list, DElist]
   # Calculate the difference in coexpression between the two conditions
+  cat("Computing differential co-expression between conditions...", fill=T)
   dCij = rAij - rBij
   # Calculate the RIF
+  cat("Computing Regulatory Impact Factor...", fill=T)
   RIFi = calculateRIFi(PIFi=PIFi, dCij=dCij, DElist=DElist, abs.PIF=abs.PIF)
   output = list(eSet=eSet, DElist=DElist, classCol=classCol, conds=conds, regulator.list=regulator.list,
                 EiAB=EiAB, Ai=Ai, dEi=dEi, PIFi=PIFi, rAij=rAij, rBij=rBij, dCij=dCij, RIFi=RIFi)
   class(output) = "Hudson"
+  cat("Done.", fill=T)
   return(output)
 }
 

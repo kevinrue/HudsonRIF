@@ -53,7 +53,7 @@ and Paul McGettigan.
 function (hudson, probe, pch.max) 
 {
     if (class(hudson) != "Hudson") {
-        warning("\"hudson\" (", class(hudson), ") is not an Hudson object.", 
+        stop("\"hudson\" (", class(hudson), ") is not an Hudson object.", 
             call. = F)
     }
     if (any(!c("conds", "DElist", "PIFi", "rAij", "rBij", "RIFi") \%in\% 
@@ -65,11 +65,11 @@ function (hudson, probe, pch.max)
         stop("\"probe\" (", probe, ") is not a character object.", 
             call. = F)
     }
-    if (!probe \%in\% hudson$rAij[probe, ]) {
+    if (!probe \%in\% rownames(hudson$rAij)) {
         stop("\"probe\" (", probe, ") is not a valid probe ID in rAij rows.", 
             call. = F)
     }
-    if (!probe \%in\% hudson$rBij[probe, ]) {
+    if (!probe \%in\% rownames(hudson$rBij)) {
         stop("\"probe\" (", probe, ") is not a valid probe ID in rBij rows.", 
             call. = F)
     }

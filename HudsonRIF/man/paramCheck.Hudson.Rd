@@ -61,19 +61,24 @@ and Paul McGettigan.
 function (eSet, contrast, classCol, DElist, abs.PIF, regulator.list) 
 {
     if (class(eSet) != "ExpressionSet") {
-        stop("\"eSet\" (", class(eSet), ") is not an ExpressionSet", 
+        stop("\"eSet\" (", class(eSet), ") is not an ExpressionSet.", 
             call. = F)
     }
     if (class(contrast) != "formula") {
-        stop("\"contrast\" (", class(contrast), ") is not a formula", 
+        stop("\"contrast\" (", class(contrast), ") is not a formula.", 
             call. = F)
     }
-    if (length(contrast[[2]]) > 1 | length(contrast[[3]]) > 1) {
+    if (length(contrast[[2]]) > 1) {
         stop("\"contrast\" (", paste(as.character(contrast[c(2, 
-            3)]), collapse = " ~ "), ") contains more than one term on each side", 
+            3)]), collapse = " ~ "), ") contains more than one term on the left side.", 
             call. = F)
     }
-    if (!classCol \%in\% names(pData(eSet))){
+    if (length(contrast[[3]]) > 1) {
+        stop("\"contrast\" (", paste(as.character(contrast[c(2, 
+            3)]), collapse = " ~ "), ") contains more than one term on the right side.", 
+            call. = F)
+    }
+    if (!classCol \%in\% names(pData(eSet))) {
         stop("\"classCol\" (", classCol, ") is not a valid column name in \"pData(eSet)\"", 
             call. = F)
     }

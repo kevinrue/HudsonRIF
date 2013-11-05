@@ -97,27 +97,44 @@ names(hud$PIFi) = paste("gene", 6:9)
 class(hud) = "Hudson"
 
 ## The function is currently defined as
-function (eSet, contrast, classCol, DElist, abs.PIF = TRUE, regulator.list = "")
+function (eSet, contrast, classCol, DElist, abs.PIF = TRUE, regulator.list = "") 
 {
+    cat("Checking input variables...", fill = T)
     paramCheck.Hudson(eSet, contrast, classCol, DElist, abs.PIF, 
         regulator.list)
+    cat("Identifying conditions to compare...", fill = T)
     conds = list(A = as.character(contrast[[2]]), B = as.character(contrast[[3]]))
+    cat("Defining list of potential regulators...", fill = T)
     if (any(regulator.list == "")) {
         regulator.list = rownames(exprs(eSet))[!rownames(exprs(eSet)) \%in\% 
             DElist]
     }
+    cat("Computing average gene expression in each condition...", 
+        fill = T)
     EiAB = calculateEiAB(eSet = eSet, classCol = classCol, conds$A, 
         conds$B)
+    cat("Computing average gene abundance across condition...", 
+        fill = T)
     Ai = (EiAB[, conds$A] + EiAB[, conds$B])/2
+    cat("Computing differential expression between conditions...", 
+        fill = T)
     dEi = EiAB[, conds$A] - EiAB[, conds$B]
+    cat("Computing Phenotypic Impact Factor...", fill = T)
     PIFi = Ai * dEi
+    cat("Computing all pairwise co-expression values in condition A...(This may take a moment)", 
+        fill = T)
     rAij = cor(x = t(exprs(eSet[, which(pData(eSet)[, classCol] == 
         conds$A)])), method = "spearman")
     rAij = rAij[regulator.list, DElist]
+    cat("Computing all pairwise co-expression values in condition B...(This may take a moment)", 
+        fill = T)
     rBij = cor(x = t(exprs(eSet[, which(pData(eSet)[, classCol] == 
         conds$B)])), method = "spearman")
     rBij = rBij[regulator.list, DElist]
+    cat("Computing differential co-expression between conditions...", 
+        fill = T)
     dCij = rAij - rBij
+    cat("Computing Regulatory Impact Factor...", fill = T)
     RIFi = calculateRIFi(PIFi = PIFi, dCij = dCij, DElist = DElist, 
         abs.PIF = abs.PIF)
     output = list(eSet = eSet, DElist = DElist, classCol = classCol, 
@@ -125,6 +142,7 @@ function (eSet, contrast, classCol, DElist, abs.PIF = TRUE, regulator.list = "")
         Ai = Ai, dEi = dEi, PIFi = PIFi, rAij = rAij, rBij = rBij, 
         dCij = dCij, RIFi = RIFi)
     class(output) = "Hudson"
+    cat("Done.", fill = T)
     return(output)
 }
 }

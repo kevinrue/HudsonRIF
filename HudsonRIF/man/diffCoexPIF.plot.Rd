@@ -80,6 +80,8 @@ diffCoexPIF.plot(hudson=hud, probe="gene 1", pch.max=15)
 ## The function is currently defined as
 function (hudson, probe, pch.max = 0) 
 {
+    paramCheck.diffCoexPIF.plot(hudson = hudson, probe = probe, 
+        pch.max = pch.max)
     if (pch.max == 0) {
         pch.max = max(hudson$PIFi)
     }
